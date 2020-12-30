@@ -136,7 +136,7 @@ export default {
     let myChart = this.$echarts.init(document.getElementById("main-chart"));
     myChart.resize(); //自适应大小
 
-    getList("g3DjZdD0").then((res) => {
+    getList(this.columnIds.ebook).then((res) => {
       // console.log(res.data.group_info.childs);
       res.data.group_info.childs.map((item, index) => {
         item.category = 0;
@@ -146,16 +146,35 @@ export default {
         item.childs.map((citem) => {
           citem.category = 1;
           citem.itemStyle = { color: this.color(index) };
-          citem.herf = '/list'
+          citem.herf = "/list";
           // console.log({source:item.name,target:citem.name});
           this.nodes.push(citem);
           this.links.push({ source: item.id, target: citem.id });
         });
       });
       myChart.setOption(this.setOption());
-      myChart.on('click',function(e){
-        console.log(e)
-      })
+      myChart.on("click", (e) => {
+        // console.log(e)
+        if (e.data.herf) {
+          // console.log(this.$router)
+          // console.log(this.$route.query.name)
+          // console.log(e.data.id)
+          let arr = JSON.parse(window.sessionStorage.getItem("crumbs_List"));
+          arr[2] = {
+            name:e.data.name,
+            link: "/diagram",
+            id:e.data.id,
+          };
+          window.sessionStorage.setItem("crumbs_List", JSON.stringify(arr));
+          this.$router.push({
+            path: e.data.herf,
+            query: {
+              id: e.data.id,
+              name: this.$route.query.name,
+            },
+          });
+        }
+      });
     });
   },
   beforeCreate() {}, //生命周期 - 创建之前

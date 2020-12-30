@@ -2,7 +2,7 @@
 <template>
   <div class="header">
     <div class="header_Home" v-if="home">
-      <img src="../assets/images/touobuLogo.png" alt="" class="logo_top" v-if="isLogin&&home!='home'">
+      <img src="../assets/images/touobuLogo.png" alt="" class="logo_top" v-if="home!='home'">
       <div class="home_Header_Input">
         <input
           type="text"
@@ -37,7 +37,7 @@ export default {
   data() {
     //这里存放数据
     return {
-      isLogin:true,
+      isLogin:'',
       alias:'未登录',
       avatar:require("../assets/images/denglu.png")
     };
@@ -72,9 +72,9 @@ export default {
       this.alias = base.decode(Cookies.get('alias'))
       this.avatar = base.decode(Cookies.get('avatar'))
       }
-      // this.isLogin = true
-      // this.alias = '一枝军绿色',
-      // this.avatar = require('../assets/logo.png')
+      this.isLogin = true
+      this.alias = '一枝军绿色',
+      this.avatar = require('../assets/logo.png')
 
   },
   beforeCreate() {}, //生命周期 - 创建之前

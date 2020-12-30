@@ -46,31 +46,31 @@ export default {
       column_List: [
         {
           name: "电子书",
-          post_id: "g3DjZdD0",
+          post_id: this.columnIds.ebook,
           img_Url1: require("../assets/images/dianzishu1.png"),
           img_Url2: require("../assets/images/dianzishu2.png"),
         },
         {
           name: "论文文章",
-          post_id: "VnDMgE14",
+          post_id: this.columnIds.thesis,
           img_Url1: require("../assets/images/lunwen1.png"),
           img_Url2: require("../assets/images/lunwen2.png"),
         },
         {
           name: "纪录片",
-          post_id: "Qz1zLOD2",
+          post_id: this.columnIds.documentary,
           img_Url1: require("../assets/images/jilupian1.png"),
           img_Url2: require("../assets/images/jilupian2.png"),
         },
         {
           name: "讲座视频",
-          post_id: "WgD7Plkl",
+          post_id: this.columnIds.lecture,
           img_Url1: require("../assets/images/jiangzuo1.png"),
           img_Url2: require("../assets/images/jiangzuo2.png"),
         },
         {
           name: "历史照片",
-          post_id: "7GDBoKkq",
+          post_id: this.columnIds.ebook,
           img_Url1: require("../assets/images/zhaopian1.png"),
           img_Url2: require("../assets/images/zhaopian2.png"),
           linkUrl:'fdaf'
