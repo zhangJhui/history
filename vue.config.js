@@ -1,12 +1,11 @@
-const { resolve } = require("core-js/fn/promise");
-
+const path = require('path')
 module.exports = {
   lintOnSave: false,
-  configWebpack:{
+  configureWebpack:{
     resolve:{
       extensions:['js','vue'],
       alias:{
-        '@':resolve('src')
+        '@':path.join(__dirname,'src')
       }
     }
   }

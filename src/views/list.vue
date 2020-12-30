@@ -1,8 +1,26 @@
 <!--  -->
 <template>
-  <div class="list_box">
-    <Header home="list"></Header>
-    <crumbs class="crumbs_List" v-if="crumbs_List"></crumbs>
+  <div>
+    <div class="list_box">
+      <Header home="list"></Header>
+      <crumbs class="crumbs_List" v-if="crumbs_List"></crumbs>
+    </div>
+    <div>
+      <div class="columns">
+        <aside>
+          <div>电子书</div>
+          <ul v-if="columns !== null" class="">
+            <li v-for="item in columns" :key="item.id">
+              {{item.name}}
+              <ul v-if="item.showChild">
+                <li v-for="childColumn in item.childs" :key="childColumn.id">{{childColumn.name}}</li>
+              </ul>
+            </li>
+          </ul>
+        </aside>
+        
+      </div>
+    </div>
   </div>
 </template>
 
@@ -10,7 +28,7 @@
 import Header from "../components/header.vue";
 import crumbs from "../components/crumbs.vue";
 import {getList} from '@/util/util.js'
-console.log(getList)
+
 export default {
   components: {
     Header,
@@ -19,11 +37,18 @@ export default {
   data() {
     return {
       crumbs_List: [],
+      columns:null
     };
   },
   methods: {
     getCatalog(){
-      console.log(this)
+      getList(this.columnIds.ebook).then(res=>{
+        this.columns = res.data.group_info.childs.map(item=>{
+          item.showChild = false
+          return item
+        })
+        console.log(this.columns)
+      })
     }
   },
   created() {
@@ -35,7 +60,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-//@import url(); 引入公共css类
+ul,li{
+  text-emphasis: none;
+  list-style-type: none;
+  margin:0;
+  padding:0;
+}
+.columns{
+  width: 1200px;
+}
 .list_box {
   background-image: url("../assets/images/shangchengbg@3x.png");
   background-size: cover;
