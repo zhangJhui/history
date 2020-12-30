@@ -15,20 +15,18 @@
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {},
+  props:{
+    DataList:Array
+  },
   data() {
     //这里存放数据
     return {
-      DataList: [],
+      // DataList: [],
     };
   },
   //监听属性 类似于data概念
   computed: {},
   //监控data中的数据变化
-  watch: {
-    DataList(val) {
-      this.DataList = val
-    }
-  },
   //方法集合
   methods: {
     go_link(url, index) {
@@ -46,10 +44,11 @@ export default {
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+  },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    this.DataList = JSON.parse(window.sessionStorage.getItem("crumbs_List"));
+    // this.DataList = JSON.parse(window.sessionStorage.getItem("crumbs_List"));
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前

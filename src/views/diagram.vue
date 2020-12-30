@@ -130,7 +130,11 @@ export default {
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    let arr = JSON.parse(window.sessionStorage.getItem("crumbs_List"));
+    arr.splice(2)
+    window.sessionStorage.setItem("crumbs_List", JSON.stringify(arr));
+  },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
     let myChart = this.$echarts.init(document.getElementById("main-chart"));
@@ -198,7 +202,7 @@ export default {
   z-index: 9;
 }
 #main-chart {
-  margin-top: 6.25rem /* 100/16 */;
+  margin-top: 9.375rem /* 150/16 */;
 }
 .crumbs_List {
   position: absolute;
