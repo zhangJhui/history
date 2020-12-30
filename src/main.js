@@ -3,8 +3,10 @@ import App from "./App.vue";
 import router from "./router";
 import "./plugins/element.js";
 import * as echarts from 'echarts'
+import moduleIds from '@/moduleIds' 
 
-
+Object.assign(Vue.prototype,moduleIds)
+console.log(moduleIds)
 if (window.sessionStorage.getItem('crumbs_List')) {
   var arr = JSON.parse(sessionStorage.getItem('crumbs_List'))
 } else {

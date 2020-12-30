@@ -73,6 +73,7 @@ export default {
           post_id: "7GDBoKkq",
           img_Url1: require("../assets/images/zhaopian1.png"),
           img_Url2: require("../assets/images/zhaopian2.png"),
+          linkUrl:'fdaf'
         },
       ],
       active: undefined,
@@ -93,11 +94,11 @@ export default {
     go_List(id, name) {
       if (name == "电子书") {
         let arr = JSON.parse(window.sessionStorage.getItem("crumbs_List"));
-        arr.push({
+        arr[1] = {
           name,
           link: "/diagram",
           id,
-        });
+        };
         window.sessionStorage.setItem("crumbs_List", JSON.stringify(arr));
         this.$router.push({
           path: "/diagram",
@@ -108,11 +109,11 @@ export default {
         });
       } else {
         let arr = JSON.parse(window.sessionStorage.getItem("crumbs_List"));
-        arr.push({
+        arr[1] = {
           name: name,
           link: "",
           id: id,
-        });
+        };
         window.sessionStorage.setItem("crumbs_List", JSON.stringify(arr));
         this.$router.push({
           path: "/diagram",

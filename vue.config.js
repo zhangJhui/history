@@ -1,3 +1,13 @@
+const { resolve } = require("core-js/fn/promise");
+
 module.exports = {
-  lintOnSave: false
+  lintOnSave: false,
+  configWebpack:{
+    resolve:{
+      extensions:['js','vue'],
+      alias:{
+        '@':resolve('src')
+      }
+    }
+  }
 };
