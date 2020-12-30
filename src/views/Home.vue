@@ -73,6 +73,7 @@ export default {
           post_id: "7GDBoKkq",
           img_Url1: require("../assets/images/zhaopian1.png"),
           img_Url2: require("../assets/images/zhaopian2.png"),
+          linkUrl:'fdaf'
         },
       ],
       active: undefined,
