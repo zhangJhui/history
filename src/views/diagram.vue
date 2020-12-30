@@ -36,45 +36,36 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    color(params) {
+      var colorarrays = [
+        "#ff5555",
+        "#009988",
+        "#7555ff",
+        "#ffe955",
+        "#2F9323",
+        "#D9B63A",
+        "#2E2AA4",
+        "#9F2E61",
+        "#4D670C",
+        "#BF675F",
+        "#1F814A",
+        "#357F88",
+        "#673509",
+        "#310937",
+        "#1B9637",
+        "#F7393C",
+      ];
+      return colorarrays[params];
+    },
     setOption: function() {
       // console.log(this.parent)
       let list = {
         nodes: this.nodes,
-        // [{
-        //   name: "节点9",
-        //   category: 0,
-        // },
-        // {
-        //   name: "节点1",
-        //   category: 1,
-        // },
-        // {
-        //   name: "节点5",
-        //   category: 1,
-        // },
-        // {
-        //   name: "节点8",
-        //   category: 2,
-        // },
-        // {
-        //   name: "节点7",
-        //   category: 2,
-        // },
-        // {
-        //   name: "节点2",
-        //   category: 2,
-        // },
-        // {
-        //   name: "节点3",
-        //   category: 2,
-        // },
-        // {
-        //   name: "节点4",
-        //   category: 2,
-        // },],
         links: this.links,
       };
-      console.log(list.links)
+      // console.log('nodes',list.nodes)
+      // console.log(list.links);
+      // console.log(list.nodes);
       let option = {
         animationDurationUpdate: 1500,
         animationEasingUpdate: "quinticInOut",
@@ -107,29 +98,11 @@ export default {
               fontSize: 20, //关系（也即线）上的标签字体大小
             },
             force: {
-              repulsion: 100,
+              repulsion: 250,
               edgeLength: 200,
             },
             data: list.nodes,
-            links:list.links,
-            // [
-            //   {
-            //     source: "节点1",
-            //     target: "节点3",
-            //   },
-            //   {
-            //     source: "节点1",
-            //     target: "节点2",
-            //   },
-            //   {
-            //     source: "节点1",
-            //     target: "节点4",
-            //   },
-            //   {
-            //     source: "节点5",
-            //     target: "节点7",
-            //   },
-            // ],
+            links: list.links,
             lineStyle: {
               opacity: 0.9,
               width: 2,
@@ -164,19 +137,25 @@ export default {
     myChart.resize(); //自适应大小
 
     getList("g3DjZdD0").then((res) => {
-      console.log(res.data.group_info.childs);
-      res.data.group_info.childs.map((item) => {
+      // console.log(res.data.group_info.childs);
+      res.data.group_info.childs.map((item, index) => {
         item.category = 0;
+        item.itemStyle = { color: this.color(index) };
         // console.log('父级',item)
         this.nodes.push(item);
         item.childs.map((citem) => {
           citem.category = 1;
+          citem.itemStyle = { color: this.color(index) };
+          citem.herf = '/list'
           // console.log({source:item.name,target:citem.name});
-          this.nodes.push(citem)
-          this.links.push({source:item.name,target:citem.name})
+          this.nodes.push(citem);
+          this.links.push({ source: item.id, target: citem.id });
         });
-        myChart.setOption(this.setOption());
       });
+      myChart.setOption(this.setOption());
+      myChart.on('click',function(e){
+        console.log(e)
+      })
     });
   },
   beforeCreate() {}, //生命周期 - 创建之前
@@ -200,7 +179,7 @@ export default {
   z-index: 9;
 }
 #main-chart {
-  margin-top: 9.375rem /* 150/16 */;
+  margin-top: 6.25rem /* 100/16 */;
 }
 .crumbs_List {
   position: absolute;
