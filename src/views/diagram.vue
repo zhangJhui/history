@@ -98,8 +98,8 @@ export default {
               fontSize: 20, //关系（也即线）上的标签字体大小
             },
             force: {
-              repulsion: 250,
-              edgeLength: 200,
+              repulsion: 220,
+              edgeLength: 150,
             },
             data: list.nodes,
             links: list.links,
@@ -198,7 +198,7 @@ export default {
   z-index: 9;
 }
 #main-chart {
-  margin-top: 6.25rem /* 100/16 */;
+  margin-top: 9.375rem /* 150/16 */;
 }
 .crumbs_List {
   position: absolute;

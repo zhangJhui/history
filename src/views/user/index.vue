@@ -2,18 +2,18 @@
 <template>
   <div class="box">
     <Header home="index"></Header>
-    <div class="crad_box">
-      <div>
+    <el-row :span='22' class="crad_box">
+      <el-col :span='6' :offset="2">
         <el-card class="user_card">
-          131321321
+          <div class="user_card_img"></div>
         </el-card>
-      </div>
-      <div>
+      </el-col>
+      <el-col :span='14' :offset="1">
         <el-card class="info_card">
           asd
         </el-card>
-      </div>
-    </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -29,7 +29,13 @@ export default {
   },
   data() {
     //这里存放数据
-    return {};
+    return {
+      user:{
+        alias:'一身军绿色',
+        avatar:require("../../assets/images/denglu.png"),
+        autograph:''
+      }
+    };
   },
   //监听属性 类似于data概念
   computed: {},
@@ -61,16 +67,22 @@ export default {
   width: 100%;
   z-index: 9;
 }
-.card_box {
-  >div {
+.crad_box {
+    margin-top: 6.875rem /* 110/16 */;
+  > div {
     display: inline-block;
   }
 }
-.box-card {
-  // display: inline-block;
-  width: 300px;
+.user_card {
+  display: inline-block;
+  width: 100%;
+  &_img {
+    width: 6rem /* 96/16 */;
+    height: 6rem /* 96/16 */;
+  }
 }
 .info_card {
-  width: 300px;
+  display: inline-block;
+  width: 100%;
 }
 </style>

@@ -92,7 +92,7 @@ export default {
   position: fixed;
   width: 100%;
   padding: 2.5rem /* 40/16 */ 0;
-  border: 1px solid red;
+  // border: 1px solid red;
   overflow: hidden;
 }
 .home_Header_Input {
