@@ -110,7 +110,7 @@
                   >
                 </div>
               </div>
-              <hr style="margin-top:.9375rem /* 15/16 */"/>
+              <hr style="margin-top:.9375rem /* 15/16 */" />
               <ul>
                 <li
                   v-for="(value, index) in record.records"
@@ -118,12 +118,9 @@
                   class="record_li"
                 >
                   <!-- {{ value }} -->
-                  <span v-if="value.type == 1"
-                    >成功下载资源，获得积分<span class="record_num"
-                      >+{{ value.num }}</span
-                    ></span
+                  <span>{{value.detail}}<span class="record_num">+{{ value.point }}</span></span
                   >
-                  <span v-if="value.type == 2"
+                  <!-- <span v-if="value.type == 2"
                     >收藏资源，获得积分<span class="record_num"
                       >+{{ value.num }}</span
                     ></span
@@ -132,8 +129,8 @@
                     >上传资源成功，获得积分<span class="record_num"
                       >+{{ value.num }}</span
                     ></span
-                  >
-                  <span class="record_data">{{ value.data }}</span>
+                  > -->
+                  <span class="record_data">{{ value.createDate }}</span>
                 </li>
               </ul>
             </el-tab-pane>
@@ -155,6 +152,7 @@ import {
   getintegrl,
   getrecord,
   getDetail,
+  getpoints,
 } from "../../util/util.js";
 export default {
   //import引入的组件需要注入到对象中才能使用
@@ -261,17 +259,23 @@ export default {
       this.userload.download = res.data.data;
     });
     getintegrl(sessionStorage.getItem("userId")).then((res) => {
+      // console.log(res)
       this.userload.integral = res.data.point;
     });
-    // getrecord(sessionStorage.getItem("userId"),0).then(res => {
-    //   // console.log(res.data.data)
-    //   res.data.data.forEach(item => {
-    //     // console.log(item)
-    //     getDetail(item).then(resn => {
-    //       console.log(item,resn)
-    //     })
-    //   })
-    // })
+    getpoints(sessionStorage.getItem("userId")).then((res) => {
+      console.log(res.data.details);
+      this.record.records = res.data.details;
+      this.lastrecord = this.record.records[0].point
+    });
+    getrecord(sessionStorage.getItem("userId"), 0).then((res) => {
+      // console.log(res.data.data)
+      res.data.data.forEach((item) => {
+        // console.log(item)
+        getDetail(item).then((resn) => {
+          console.log(item, resn);
+        });
+      });
+    });
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -456,7 +460,6 @@ li {
 }
 .record_li {
   margin-top: 1.25rem /* 20/16 */;
-  
 }
 </style>
 <style lang="scss">
@@ -466,7 +469,7 @@ li {
   height: 39.25rem /* 628/16 */;
   overflow-y: scroll;
   .el-tabs__item {
-    width: 281px;
+    width: 16.875rem /* 270/16 */;
     text-align: center;
   }
   .el-tabs__active-bar {
