@@ -50,7 +50,7 @@
 <script>
 import Header from "../components/header.vue";
 import crumbs from "../components/crumbs.vue";
-import {getList} from '@/util/util.js'
+import {getList,getDetail} from '@/util/util.js'
 import {Loading} from 'element-ui'
 export default {
   components: {
