@@ -98,8 +98,8 @@ export default {
               fontSize: 20, //关系（也即线）上的标签字体大小
             },
             force: {
-              repulsion: 250,
-              edgeLength: 200,
+              repulsion: 220,
+              edgeLength: 150,
             },
             data: list.nodes,
             links: list.links,
