@@ -1,5 +1,6 @@
 import axios from 'axios'
 var situo_Url = 'https://pub1.arm.autops.xyz'
+// var situo_Url = 'https://publish.node2.autops.xyz'
 var haishi_Url = 'https://network-plus.3xmt.com/network-plus/api'
 var chuantou_Url = 'http://xzg2eq.natappfree.cc/network-plus/api'
 var chuantou2_Url = 'http://txx5yk.natappfree.cc/network-plus/api'
