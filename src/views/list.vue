@@ -36,11 +36,11 @@
           </ul>
           <div class='list_pagination'>
             <el-pagination
+              @current-change = "changePage"
               layout="prev, pager, next"
               :total="50">
             </el-pagination>
           </div>
-          
         </main>
       </div>
     </div>
@@ -50,7 +50,7 @@
 <script>
 import Header from "../components/header.vue";
 import crumbs from "../components/crumbs.vue";
-import {getList,getDetail} from '@/util/util.js'
+import {getList} from '@/util/util.js'
 import {Loading} from 'element-ui'
 export default {
   components: {
@@ -63,6 +63,8 @@ export default {
       columns:null,     //栏目列表
       bookLists:[],     //右侧数据列表
       nowChoice:-1,      //当前选择的栏目
+      total:0,        //数据总数
+      nowPage:0,
     };
   },
   methods: {
@@ -73,6 +75,7 @@ export default {
           item.showChild = false
           return item
         })
+        this.init()
       })
     },
     //打开子栏目
@@ -98,8 +101,32 @@ export default {
       })
       getList(id).then(res=>{
         this.bookLists = res.data.posts
+        this.total = res.data.count
+        if(id!==this.$route.query.id){
+          this.$router.push({
+            path:'/list',
+            query:{
+              id,
+              name:'电子书'
+            }
+          })
+        }
         loadingStatus.close()
       })
+    },
+    init(){
+      let id = this.$route.query.id
+      this.columns.forEach((item,index)=>{
+        item.childs.forEach((childColumn,i)=>{
+          if(childColumn.id === id){
+            this.showChildColumn(index)
+            this.getBooks(id,i,index)
+          }
+        })
+      })
+    },
+    changePage(i){
+      this.nowPage = i - 1
     }
   },
   created() {
@@ -111,17 +138,15 @@ export default {
 </script>
 <style lang="scss">
 .list_pagination{
-  display: inline-block;
-  margin: 0 auto;
-  li{
+  display:flex;
+  justify-content: center;
+  li,button{
     width: 32px;
     height: 28px;
     background: #ffffff;
     border: 1px solid #009988;
     border-radius: 3px;
-  }
-  li+li{
-    margin-left:1.875rem /* 30/16 */;
+    margin-right:1.875rem /* 30/16 */;
   }
   .el-pager{
     .active{
@@ -133,6 +158,12 @@ export default {
     }
     li:hover{
       color:#009988;
+    }
+    li:nth-child(1){
+      margin-left: 1.875rem /* 30/16 */;
+    }
+    .btn-next{
+      margin-left: 1.875rem /* 30/16 */;
     }
   }
 }

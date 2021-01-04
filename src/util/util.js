@@ -1,5 +1,5 @@
 import axios from 'axios'
-var situo_Url = 'https://demo.arm.autops.xyz/#/media/myworkbench'
+var situo_Url = 'https://publish.node2.autops.xyz'
 var haishi_Url = 'https://network-plus.3xmt.com/network-plus/api'
 var chuantou_Url = 'http://cc65d9.natappfree.cc/network-plus/api'
 
