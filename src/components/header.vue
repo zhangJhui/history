@@ -2,7 +2,13 @@
 <template>
   <div class="header">
     <div class="header_Home" v-if="home">
-      <img src="../assets/images/touobuLogo.png" alt="" class="logo_top" v-if="home!='home'">
+      <img
+        src="../assets/images/touobuLogo.png"
+        alt=""
+        class="logo_top"
+        v-if="home != 'home'"
+        @click="home_"
+      />
       <div class="home_Header_Input">
         <input
           type="text"
@@ -17,8 +23,8 @@
           上传
         </div>
         <div @click="login" ref="user">
-          <div :style="{backgroundImage:'url('+avatar+')'}"></div>
-          {{alias}}
+          <div :style="{ backgroundImage: 'url(' + avatar + ')' }"></div>
+          {{ alias }}
         </div>
       </div>
     </div>
@@ -28,8 +34,8 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-import Cookies from  '@/assets/js/js.cookie-2.2.1.min.js'
-import base from '@/assets/js/base64.min.js'
+import Cookies from "@/assets/js/js.cookie-2.2.1.min.js";
+import base from "@/assets/js/base64.min.js";
 export default {
   //import引入的组件需要注入到对象中才能使用
   props: ["home"],
@@ -37,9 +43,9 @@ export default {
   data() {
     //这里存放数据
     return {
-      isLogin:'',
-      alias:'未登录',
-      avatar:require("../assets/images/denglu.png")
+      isLogin: "",
+      alias: "未登录",
+      avatar: require("../assets/images/denglu.png"),
     };
   },
   //监听属性 类似于data概念
@@ -48,34 +54,41 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    home_() {
+      this.$router.push("/");
+    },
     login() {
-      if(!this.isLogin) {
-        window.location.href = 'https://api-saas.qjw.jw/account/#/?redirect_url=https://pub-saas.qjw.jw/culture&system_id=z6DVON4q'
-      }else {
-        console.log('user_core')
+      if (!this.isLogin) {
+        window.location.href =
+          "https://api-saas.qjw.jw/account/#/?redirect_url=https://pub-saas.qjw.jw/culture&system_id=z6DVON4q";
+      } else {
+        // console.log('user_core')
+        this.$router.push("/userIndex");
       }
     },
     upLoad() {
-      console.log('upLoad')
-    }
+      if (!this.isLogin) {
+        window.location.href =
+          "https://api-saas.qjw.jw/account/#/?redirect_url=https://pub-saas.qjw.jw/culture&system_id=z6DVON4q";
+      } else {
+        this.$router.push("/upload");
+      }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {
-    
-  },
+  created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    if(Cookies.get('vtoken')){
-      console.log(Cookies.get('vtoken'))
-      sessionStorage.setItem('tokenString',Cookies.get('vtoken'))
-      this.isLogin = true
-      this.alias = base.decode(Cookies.get('alias'))
-      this.avatar = base.decode(Cookies.get('avatar'))
-      }
-      this.isLogin = true
-      this.alias = '一枝军绿色',
-      this.avatar = require('../assets/logo.png')
-
+    if (Cookies.get("vtoken")) {
+      console.log(Cookies.get("vtoken"));
+      sessionStorage.setItem("tokenString", Cookies.get("vtoken"));
+      this.isLogin = true;
+      this.alias = base.decode(Cookies.get("alias"));
+      this.avatar = base.decode(Cookies.get("avatar"));
+    }
+    sessionStorage.setItem("userId", "64fe1601-0020-4e31-83be-6af08f18bb98"); // 固定用户ID
+    this.isLogin = true;
+    (this.alias = "一枝军绿色"), (this.avatar = require("../assets/logo.png"));
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
@@ -92,7 +105,6 @@ export default {
   position: fixed;
   width: 100%;
   padding: 2.5rem /* 40/16 */ 0;
-  // border: 1px solid red;
   overflow: hidden;
 }
 .home_Header_Input {
@@ -131,7 +143,7 @@ export default {
 .home_Header_Btn {
   display: inline-block;
   float: right;
-  margin-top: .625rem /* 10/16 */;
+  margin-top: 0.625rem /* 10/16 */;
   > div {
     display: inline-block;
   }
